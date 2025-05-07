@@ -18,22 +18,25 @@ const InterviewList = () => {
     }
   }, [user]);
 
-  const GetInterviewList = async () => {
-    setIsLoading(true);
-    try {
-      const result = await db
-        .select()
-        .from('"mockInterview"')
-        .where(eq(MockInterview.createdBy, user?.primaryEmailAddress?.emailAddress))
-        .orderBy(desc(MockInterview.id));
+const GetInterviewList = async () => {
+  setIsLoading(true);
+  try {
+    const userEmail = user?.primaryEmailAddress?.emailAddress;
+    if (!userEmail) throw new Error('User email not found');
 
-      setInterviewList(result);
-    } catch (error) {
-      console.error('Error fetching interview list:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    const result = await db
+      .select()
+      .from(MockInterview)
+      .where(eq(MockInterview.createdBy, userEmail))
+      .orderBy(desc(MockInterview.id));
+
+    setInterviewList(result);
+  } catch (error) {
+    console.log('Error fetching interview list:', error);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   if (isLoading) {
     return (
