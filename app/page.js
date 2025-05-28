@@ -22,14 +22,14 @@ const page = () => {
         {/* Header Section */}
         <header className="w-full py-6 bg-white shadow-sm sticky top-0 z-10">
           <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
-            <div className="flex items-center">
+            <Link href="/" className="flex items-center">
               <div className="bg-primary rounded-full p-2 mr-3">
                 <FaRegLightbulb className="w-5 h-5 text-white" />
               </div>
               <h1 className="text-2xl font-bold tracking-tight bg-clip-text bg-gradient-to-r from-primary to-primary-600">
                 AI Mock Interview
               </h1>
-            </div>
+            </Link>
 
             <nav className="flex flex-col sm:flex-row items-center mt-4 md:mt-0 space-y-4 sm:space-y-0">
               <div className="flex space-x-6 mr-8">
