@@ -1,18 +1,18 @@
-"use client";
-import { db } from "@/utils/db";
-import { Newsletter } from "@/utils/schema";
-import { LoaderCircle } from "lucide-react";
-import moment from "moment";
-import React, { useState } from "react";
-import { toast } from "sonner";
+'use client';
+import { db } from '@/utils/db';
+import { Newsletter } from '@/utils/schema';
+import { LoaderCircle } from 'lucide-react';
+import moment from 'moment';
+import React, { useState } from 'react';
+import { toast } from 'sonner';
 
-const Contect = () => {
+const Contact = () => {
   const handleInputChange = (setState) => (e) => {
     setState(e.target.value);
   };
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
@@ -27,71 +27,75 @@ const Contect = () => {
           newName: name,
           newEmail: email,
           newMessage: message,
-          createdAt: moment().format("YYYY-MM-DD"),
+          createdAt: moment().format('YYYY-MM-DD'),
         });
 
         if (resp) {
-          toast("User Response recorded successfully");
-          setName("");
-          setEmail("");
-          setMessage("");
+          toast('User Response recorded successfully');
+          setName('');
+          setEmail('');
+          setMessage('');
         } else {
-          toast("Error recording response");
+          toast('Error recording response');
         }
       } catch (error) {
         console.error(error);
-        toast("Error recording response");
+        toast('Error recording response');
       } finally {
         setLoading(false);
       }
     } else {
-      toast("No data entered");
+      toast('No data entered');
     }
   };
+
   return (
-    <div className="container mx-auto text-center">
-      <h2 className="text-4xl font-bold text-gray-800">Get In Touch</h2>
-      <p className="mt-4 text-lg text-gray-600">
-        Have any questions? Reach out to us and we'll get back to you as soon as
-        possible.
-      </p>
-      <div className="mt-8">
-        <form onSubmit={onSubmit} className="max-w-xl mx-auto">
-          <input
-            type="text"
-            placeholder="Your Name"
-            value={name}
-            onChange={handleInputChange(setName)}
-            className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
-          />
-          <input
-            type="email"
-            placeholder="Your Email"
-            value={email}
-            onChange={handleInputChange(setEmail)}
-            className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
-          />
-          <textarea
-            placeholder="Your Message"
-            value={message}
-            onChange={handleInputChange(setMessage)}
-            className="w-full px-4 py-3 mb-4 text-lg border border-gray-300 rounded-lg"
-            rows="4"
-          />
-          <button
-            type="submit"
-            className="px-6 py-3 text-lg font-semibold bg-black text-white rounded-lg shadow-lg hover:bg-gray-700"
-          >
-            {loading ? (
-              <LoaderCircle className="animate-spin" />
-            ) : (
-              "Send Message"
-            )}
-          </button>
+    <div className="min-h-screen flex items-center justify-center py-12 px-4">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-light text-gray-900 mb-3">Get In Touch</h2>
+          <p className="text-gray-500 text-sm leading-relaxed">
+            Have any questions? We'll get back to you soon.
+          </p>
+        </div>
+
+        <form onSubmit={onSubmit} className="space-y-6">
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={handleInputChange(setName)}
+              className="w-full px-0 py-3 text-gray-900 placeholder-gray-400 bg-transparent border-0 border-b border-gray-200 focus:border-gray-900 focus:outline-none transition-colors duration-200"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={handleInputChange(setEmail)}
+              className="w-full px-0 py-3 text-gray-900 placeholder-gray-400 bg-transparent border-0 border-b border-gray-200 focus:border-gray-900 focus:outline-none transition-colors duration-200"
+            />
+            <textarea
+              placeholder="Message"
+              value={message}
+              onChange={handleInputChange(setMessage)}
+              rows="4"
+              className="w-full px-0 py-3 text-gray-900 placeholder-gray-400 bg-transparent border-0 border-b border-gray-200 focus:border-gray-900 focus:outline-none transition-colors duration-200 resize-none"
+            />
+          </div>
+
+          <div className="pt-6">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 disabled:bg-gray-400 transition-colors duration-200 rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2">
+              {loading ? <LoaderCircle className="w-4 h-4 mx-auto animate-spin" /> : 'Send Message'}
+            </button>
+          </div>
         </form>
       </div>
     </div>
   );
 };
 
-export default Contect;
+export default Contact;
